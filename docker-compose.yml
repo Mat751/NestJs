@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/node/Dockerfile
       context: .
     ports:
-      - '3000'
+      - '3000:3000'
     volumes:
       - .:/app
     command: sh -c "yarn install && yarn start:dev"
