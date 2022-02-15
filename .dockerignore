@@ -1,7 +1,0 @@
-dist/
-docker/
-node_modules/
-.env*
-.idea*
-.vscode*
-docker-compose.yml
