@@ -1,0 +1,35 @@
+version: '3.8'
+
+networks:
+  analytics_net:
+    driver: bridge
+
+volumes:
+  mongodatavolume:
+    driver: local
+
+services:
+  node:
+    build:
+      dockerfile: ./docker/node/Dockerfile
+      context: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    command: sh -c "yarn install && yarn start:dev"
+    networks:
+      - analytics_net
+  
+  mongo:
+    image: mongo:5.0
+    #environment:
+    #  MONGO_INITDB_ROOT_USERNAME: 'mongo'
+    #  MONGO_INITDB_ROOT_PASSWORD: 'mongo'
+    volumes:
+      - mongodatavolume:/data/db
+      - ./docker/mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    ports:
+      - '27017:27017'
+    networks:
+      - analytics_net
