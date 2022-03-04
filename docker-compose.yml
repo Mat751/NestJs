@@ -33,3 +33,12 @@ services:
       - '27017:27017'
     networks:
       - analytics_net
+  
+  adminer:
+    build: docker/adminer
+    ports:
+      - "8081:8080"
+    networks:
+      - analytics_net
+    depends_on:
+      - mongo
